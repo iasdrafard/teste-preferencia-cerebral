@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  color: #222;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 620px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.15);
+  contain: layout paint;
+}
+
+.animate-in {
+  animation: fadeUp .6s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 1.4rem;
+}
+
+.option {
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  cursor: pointer;
+  transition: background .2s ease, border .2s ease;
+  will-change: background;
+}
+
+.option:hover {
+  background: #f1f5f9;
+}
+
+.option.selected {
+  background: #e0f2fe;
+  border-color: #0284c7;
+}
+
+button.primary {
+  margin-top: 20px;
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: none;
+  background: #0284c7;
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s ease;
+}
+
+button.primary:disabled {
+  background: #94a3b8;
+  cursor: not-allowed;
+}
+
+.progress {
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #0284c7;
+  transition: width .4s ease;
+}
+
+.required {
+  margin-top: 10px;
+  font-size: .85rem;
+  color: #dc2626;
+}
+
+.hidden {
+  display: none;
+}
+
+.result-card {
+  margin-top: 20px;
+  padding: 18px;
+  border-radius: 16px;
+  background: #f8fafc;
+}
+
+.result-card.highlight {
+  border: 2px solid #0284c7;
+}
+
+.result-card img {
+  width: 80px;
+  display: block;
+  margin-bottom: 10px;
+}
