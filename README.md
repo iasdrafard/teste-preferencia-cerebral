@@ -89,6 +89,44 @@ Essa abordagem garante:
 
 ---
 
+### 🔄 Funcionalidades
+- ✔️ Etapa inicial explicativa
+- ✔️ Barra de progresso
+- ✔️ Questões e respostas embaralhadas
+- ✔️ Respostas obrigatórias
+- ✔️ Botão “Próxima” habilitado apenas após seleção
+- ✔️ Reset do teste a qualquer momento
+- ✔️ Destaque para os dois perfis predominantes
+- ✔️ Interface responsiva (mobile, tablet e desktop)
+
+---
+
+### 🔒 Privacidade
+ - Nenhuma informação pessoal é coletada
+ - Nenhum dado é salvo
+ - Nenhum cookie é utilizado
+ - Todo o processamento ocorre localmente no navegador
+
+---
+
+### 📌 Público-alvo
+ - Membros da igreja
+ - Líderes
+ - Jovens
+ - Pequenos grupos
+ - Atividades de integração, discipulado e desenvolvimento pessoal
+
+---
+
+### 🙏 Contexto Cristão
+
+Este teste é uma ferramenta auxiliar, não um diagnóstico psicológico ou espiritual.
+Seu uso deve sempre estar associado a:
+ - Diálogo
+ - Respeito
+ - Empatia
+ - Princípios cristãos
+
 ## 📁 Estrutura de Pastas
 
 ```text
@@ -102,41 +140,3 @@ Essa abordagem garante:
 │   ├── tubarao.svg
 │   └── lobo.svg
 └── README.md
-
-🔄 Funcionalidades
-	•	✔️ Etapa inicial explicativa
-	•	✔️ Barra de progresso
-	•	✔️ Questões e respostas embaralhadas
-	•	✔️ Respostas obrigatórias
-	•	✔️ Botão “Próxima” habilitado apenas após seleção
-	•	✔️ Reset do teste a qualquer momento
-	•	✔️ Destaque para os dois perfis predominantes
-	•	✔️ Interface responsiva (mobile, tablet e desktop)
-
-⸻
-
-🔒 Privacidade
-	•	Nenhuma informação pessoal é coletada
-	•	Nenhum dado é salvo
-	•	Nenhum cookie é utilizado
-	•	Todo o processamento ocorre localmente no navegador
-
-⸻
-
-📌 Público-alvo
-	•	Membros da igreja
-	•	Líderes
-	•	Jovens
-	•	Pequenos grupos
-	•	Atividades de integração, discipulado e desenvolvimento pessoal
-
-⸻
-
-🙏 Contexto Cristão
-
-Este teste é uma ferramenta auxiliar, não um diagnóstico psicológico ou espiritual.
-Seu uso deve sempre estar associado a:
-	•	Diálogo
-	•	Respeito
-	•	Empatia
-	•	Princípios cristãos
