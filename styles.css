@@ -1,54 +1,188 @@
+/* =========================
+   VARIÁVEIS
+========================= */
+:root {
+  --primary: #1e3a5f;
+  --accent: #3b82f6;
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --muted: #64748b;
+  --success: #16a34a;
+  --highlight: #fff7cc;
+}
+
+/* =========================
+   RESET
+========================= */
 * {
   box-sizing: border-box;
 }
 
-#app {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-main#app {
-  flex: 1;
-  display: flex;
-}
-
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-  color: #222;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--primary);
+  -webkit-font-smoothing: antialiased;
 }
 
-.container {
-  min-height: calc(100vh - 140px);
+/* =========================
+   HEADER
+========================= */
+.topbar {
+  background: linear-gradient(90deg, #1e3a5f, #3b82f6);
+  color: white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.topbar span {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.topbar-right {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 20px;
+  gap: 1rem;
+}
+
+.social-link {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#resetBtn {
+  background: white;
+  color: var(--primary);
+  border: none;
+  padding: 0.45rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* =========================
+   CONTAINER / CARD
+========================= */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 1.5rem;
 }
 
 .card {
-  width: 100%;
-  max-width: 620px;
-  background: #fff;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.15);
-  contain: layout paint;
+  background: var(--card);
+  border-radius: 20px;
+  padding: 2.2rem;
+  box-shadow: 0 25px 45px rgba(0,0,0,.12);
+  animation: cardIn .35s ease;
 }
 
-.animate-in {
-  animation: fadeUp .6s ease forwards;
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================
+   INTRO
+========================= */
+.card p {
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* =========================
+   PROGRESS
+========================= */
+.progress {
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 1.8rem;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  transition: width 0.35s ease;
+}
+
+/* =========================
+   QUESTIONS
+========================= */
+.option {
+  padding: 1rem 1.2rem;
+  border-radius: 14px;
+  border: 1px solid #cbd5e1;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  transition: all .25s ease;
+}
+
+.option:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+}
+
+.option.selected {
+  background: #eff6ff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59,130,246,.25);
+}
+
+/* =========================
+   BUTTONS
+========================= */
+button.primary {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 1rem 1.8rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+button.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(59,130,246,.4);
+}
+
+/* =========================
+   RESULTS
+========================= */
+.result-card {
+  background: #f8fafc;
+  border-radius: 20px;
+  padding: 2rem;
+  margin-top: 2rem;
+  animation: fadeUp .4s ease;
 }
 
 @keyframes fadeUp {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -56,86 +190,80 @@ body {
   }
 }
 
-h2 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 1.4rem;
+.result-card.highlight {
+  background: var(--highlight);
+  border: 2px solid #facc15;
 }
 
-.option {
-  padding: 14px 16px;
-  margin-bottom: 10px;
-  border-radius: 12px;
-  border: 2px solid #e5e7eb;
-  cursor: pointer;
-  transition: background .2s ease, border .2s ease;
-  will-change: background;
+.result-card img {
+  display: block;
+  margin: 0 auto 1rem;
+  width: 140px;
 }
 
-.option:hover {
-  background: #f1f5f9;
+.result-card h3 {
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.option.selected {
-  background: #e0f2fe;
-  border-color: #0284c7;
+.result-card p {
+  margin: 0.5rem 0;
+  color: var(--muted);
 }
 
-button.primary {
-  margin-top: 20px;
-  width: 100%;
-  padding: 14px;
-  font-size: 1rem;
-  border-radius: 14px;
-  border: none;
-  background: #0284c7;
-  color: #fff;
-  cursor: pointer;
-  transition: background .2s ease;
+/* =========================
+   FOOTER
+========================= */
+.footer {
+  margin-top: 4rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
-button.primary:disabled {
-  background: #94a3b8;
-  cursor: not-allowed;
-}
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  .card {
+    padding: 1.6rem;
+  }
 
-.progress {
-  height: 6px;
-  background: #e5e7eb;
-  border-radius: 999px;
-  overflow: hidden;
-  margin-bottom: 20px;
-}
+  .topbar {
+    flex-direction: column;
+    gap: 0.6rem;
+  }
 
-.progress-bar {
-  height: 100%;
-  background: #0284c7;
-  transition: width .4s ease;
+  .topbar-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .result-card img {
+    width: 110px;
+  }
 }
 
 .required {
-  margin-top: 10px;
-  font-size: .85rem;
   color: #dc2626;
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+  animation: pulse 1.4s infinite;
 }
 
 .hidden {
   display: none;
 }
 
-.result-card {
-  margin-top: 20px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #f8fafc;
+button.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.result-card.highlight {
-  border: 2px solid #0284c7;
-}
-
-.result-card img {
-  width: 80px;
-  display: block;
-  margin-bottom: 10px;
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }

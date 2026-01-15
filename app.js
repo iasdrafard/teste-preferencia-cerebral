@@ -3,20 +3,19 @@
 ========================= */
 function shuffle(array) {
   return array
-    .map(v => ({ v, s: Math.random() }))
-    .sort((a, b) => a.s - b.s)
-    .map(({ v }) => v);
+    .map(value => ({ value, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ value }) => value);
 }
 
 /* =========================
    ESTADO
 ========================= */
-let stage = "intro";
+let stage = "intro"; // intro | quiz | result
 let current = 0;
 let selected = null;
-let hasAnimated = false;
 
-let scores = { I: 0, C: 0, A: 0, O: 0 };
+let scores = { I:0, C:0, A:0, O:0 };
 
 const app = document.getElementById("app");
 document.getElementById("resetBtn").onclick = reset;
@@ -61,7 +60,7 @@ const questions = [
   ]],
 
   ["Eu penso que...", [
-    ["C", "Unidos venceremos, divididos perderemos"],
+    ["C", "Unidos venceremos"],
     ["A", "O ataque é melhor que a defesa"],
     ["I", "É bom ser manso, mas andar com um porrete"],
     ["O", "Um homem prevenido vale por dois"]
@@ -99,7 +98,7 @@ const questions = [
     ["A", "Consigo fazer muitas coisas"],
     ["C", "Me divirto com meus amigos"],
     ["O", "Tudo segue conforme planejado"],
-    ["I", "Desfruto de coisas novas e estimulantes"]
+    ["I", "Desfruto de coisas novas"]
   ]],
 
   ["Eu vejo a morte como...", [
@@ -110,100 +109,145 @@ const questions = [
   ]],
 
   ["Minha filosofia de vida é...", [
-    ["A", "Há ganhadores e perdedores, e eu acredito ser um ganhador"],
-    ["C", "Para eu ganhar, ninguém precisa perder"],
-    ["O", "Para ganhar é preciso seguir as regras"],
-    ["I", "Para ganhar, é necessário inventar novas regras"]
+    ["A", "Sou um ganhador"],
+    ["C", "Para eu ganhar ninguém precisa perder"],
+    ["O", "Seguir regras"],
+    ["I", "Inventar novas regras"]
   ]],
 
   ["Eu sempre gostei de...", [
     ["I", "Explorar"],
     ["O", "Evitar surpresas"],
     ["A", "Focar na meta"],
-    ["C", "Realizar uma bordagem natural"]
+    ["C", "Abordagem natural"]
   ]],
 
   ["Eu gosto de mudanças se...", [
-    ["A", "Me der uma vantagem competitiva"],
-    ["C", "For divertido e puder ser compartilhado"],
-    ["I", "Me der mais liberdade e variedade"],
-    ["O", "Melhorar ou me der mais controle"]
+    ["A", "Me der vantagem"],
+    ["C", "For divertido"],
+    ["I", "Me der liberdade"],
+    ["O", "Me der controle"]
   ]],
 
   ["Não existe nada de errado em...", [
-    ["A", "Se colocar na frente"],
-    ["C", "Colocar os outros na frente"],
+    ["A", "Me colocar na frente"],
+    ["C", "Colocar outros na frente"],
     ["I", "Mudar de ideia"],
     ["O", "Ser consistente"]
   ]],
 
-  ["Eu gosto de buscar conselhos de...", [
+  ["Busco conselhos de...", [
     ["A", "Pessoas bem-sucedidas"],
-    ["C", "Anciãos e conselheiros"],
-    ["O", "Autoridades no assunto"],
-    ["I", "Lugares, os mais estranhos"]
+    ["C", "Anciãos"],
+    ["O", "Autoridades"],
+    ["I", "Lugares estranhos"]
   ]],
 
   ["Meu lema é...", [
     ["I", "Fazer o que precisa ser feito"],
     ["O", "Fazer bem feito"],
-    ["C", "Fazer junto com o grupo"],
+    ["C", "Fazer junto"],
     ["A", "Simplesmente fazer"]
   ]],
 
   ["Eu gosto de...", [
-    ["I", "Complexidade, mesmo se confuso"],
-    ["O", "Ordem e sistematização"],
-    ["C", "Calor humano e animação"],
-    ["A", "Coisas claras e simples"]
+    ["I", "Complexidade"],
+    ["O", "Ordem"],
+    ["C", "Calor humano"],
+    ["A", "Simplicidade"]
   ]],
 
   ["Tempo para mim é...", [
-    ["A", "Algo que detesto desperdiçar"],
+    ["A", "Não desperdiçar"],
     ["C", "Um grande ciclo"],
-    ["O", "Uma flecha que leva ao inevitável"],
+    ["O", "Uma flecha"],
     ["I", "Irrelevante"]
   ]],
 
   ["Se eu fosse bilionário...", [
-    ["C", "Faria doações para entidades"],
-    ["O", "Criaria uma poupança avantajada"],
+    ["C", "Faria doações"],
+    ["O", "Criaria reservas"],
     ["I", "Faria o que desse vontade"],
-    ["A", "Exibiria bastante com algumas pessoas"]
+    ["A", "Exibiria"]
   ]],
 
   ["Eu acredito que...", [
-    ["A", "O destino é mais importante que a jornada"],
-    ["C", "Jornada é mais importante que o destino"],
-    ["O", "Um centavo economizado é um centavo ganho"],
-    ["I", "Bastam um navio e uma estrela para navegar"]
+    ["A", "Destino é mais importante"],
+    ["C", "Jornada é mais importante"],
+    ["O", "Economizar é ganhar"],
+    ["I", "Um navio e uma estrela"]
   ]],
 
   ["Eu acredito também que...", [
-    ["A", "Aquele que hesita está perdido"],
-    ["O", "De grão em grão a galinha enche o papo"],
-    ["C", "O que vai, volta"],
-    ["I", "Um sorriso ou uma careta é o mesmo para quem é cego"]
+    ["A", "Quem hesita perde"],
+    ["O", "De grão em grão"],
+    ["C", "O que vai volta"],
+    ["I", "Um sorriso é relativo"]
   ]],
 
   ["Eu acredito ainda que...", [
-    ["O", "É melhor prudência do que arrependimento"],
-    ["I", "A autoridade deve ser desafiada"],
+    ["O", "Prudência é melhor"],
+    ["I", "Autoridade deve ser desafiada"],
     ["A", "Ganhar é fundamental"],
-    ["C", "O coletivo é mais importante do que o individual"]
+    ["C", "O coletivo é mais importante"]
   ]],
 
   ["Eu penso que...", [
     ["I", "Não é fácil ficar encurralado"],
-    ["O", "É preferível olhar, antes de pular"],
-    ["C", "Duas cabeças pensam melhor do que uma"],
-    ["A", "Se não tem condições de competir, não compita"]
+    ["O", "Olhar antes de pular"],
+    ["C", "Duas cabeças são melhores"],
+    ["A", "Se não pode competir, não compita"]
   ]]
 ];
 
+/* =========================
+   QUESTÕES EMBARALHADAS
+========================= */
 const shuffledQuestions = shuffle(
   questions.map(q => [q[0], shuffle([...q[1]])])
 );
+
+/* =========================
+   PERFIS
+========================= */
+const profiles = {
+  I: {
+    name: "Águia",
+    img: "assets/aguia.svg",
+    comportamentos: ["Criativo", "Intuitivo", "Visionário", "Flexível"],
+    fortes: ["Criatividade", "Antecipar o futuro", "Provocar mudanças"],
+    melhorias: ["Impaciência", "Pouco foco no presente"],
+    motivacoes: ["Liberdade", "Expressão", "Ambiente flexível"],
+    valores: "Criatividade e liberdade"
+  },
+  C: {
+    name: "Gato",
+    img: "assets/gato.svg",
+    comportamentos: ["Sensível", "Relacional", "Busca harmonia"],
+    fortes: ["Comunicação", "Trabalho em equipe"],
+    melhorias: ["Evitar conflitos", "Resultados em segundo plano"],
+    motivacoes: ["Aceitação", "Trabalho em grupo"],
+    valores: "Felicidade e igualdade"
+  },
+  A: {
+    name: "Tubarão",
+    img: "assets/tubarao.svg",
+    comportamentos: ["Prático", "Objetivo", "Competitivo"],
+    fortes: ["Ação", "Resultados", "Iniciativa"],
+    melhorias: ["Relacionamentos difíceis"],
+    motivacoes: ["Autonomia", "Competição"],
+    valores: "Resultados"
+  },
+  O: {
+    name: "Lobo",
+    img: "assets/lobo.svg",
+    comportamentos: ["Organizado", "Detalhista", "Estrategista"],
+    fortes: ["Planejamento", "Consistência"],
+    melhorias: ["Resistência à mudança"],
+    motivacoes: ["Segurança", "Regras claras"],
+    valores: "Ordem e controle"
+  }
+};
 
 /* =========================
    CONTROLE
@@ -211,9 +255,8 @@ const shuffledQuestions = shuffle(
 function reset() {
   current = 0;
   selected = null;
-  hasAnimated = false;
   stage = "intro";
-  scores = { I: 0, C: 0, A: 0, O: 0 };
+  scores = { I:0, C:0, A:0, O:0 };
   render();
 }
 
@@ -232,12 +275,13 @@ function render() {
    QUESTÃO
 ========================= */
 function renderQuestion() {
+  selected = null;
   const q = shuffledQuestions[current];
   const progress = Math.round(((current + 1) / shuffledQuestions.length) * 100);
 
   app.innerHTML = `
     <div class="container">
-      <div class="card ${hasAnimated ? "" : "animate-in"}">
+      <div class="card">
         <div class="progress">
           <div class="progress-bar" style="width:${progress}%"></div>
         </div>
@@ -246,17 +290,20 @@ function renderQuestion() {
 
         ${q[1].map(o => `
           <div class="option" onclick="selectOption(this,'${o[0]}')">
-            ${o[1]}
+            ${o.slice(1)}
           </div>
         `).join("")}
 
-        <button class="primary" disabled onclick="next()">Próxima</button>
-        <div class="required">* Selecione uma opção para continuar</div>
+        <div class="required">
+          * Selecione uma opção para continuar
+        </div>
+
+        <button class="primary" disabled onclick="next()">
+          Próxima
+        </button>
       </div>
     </div>
   `;
-
-  hasAnimated = true;
 }
 
 function selectOption(el, val) {
@@ -267,35 +314,42 @@ function selectOption(el, val) {
 
   el.classList.add("selected");
 
-  document.querySelector(".required").classList.add("hidden");
-  document.querySelector("button.primary").disabled = false;
+  document.querySelector(".required")?.classList.add("hidden");
+  document.querySelector("button.primary")?.removeAttribute("disabled");
 }
 
 function next() {
   scores[selected]++;
-  selected = null;
   current++;
   render();
 }
 
 /* =========================
-   RESULTADO
+   RESULTADO + DONUT
 ========================= */
 function renderResult() {
   const total = shuffledQuestions.length;
 
   const sorted = Object.entries(scores)
-    .map(([k, v]) => ({ k, v, p: Math.round(v / total * 100) }))
-    .sort((a, b) => b.v - a.v);
+    .map(([k,v]) => ({ k, v, p: Math.round(v / total * 100) }))
+    .sort((a,b) => b.v - a.v);
+
+  let offset = 0;
 
   app.innerHTML = `
     <div class="container">
       <div class="card">
         <h2>Resultado Final</h2>
-        ${sorted.map((r, i) => `
-          <div class="result-card ${i < 2 ? "highlight" : ""}">
-            <img src="assets/${profiles[r.k].img}" />
+
+        ${sorted.map((r,i)=>`
+          <div class="result-card ${i<2?"highlight":""}">
+            <img src="${profiles[r.k].img}" width="100"/>
             <h3>${profiles[r.k].name} – ${r.p}%</h3>
+            <p><strong>Comportamentos:</strong> ${profiles[r.k].comportamentos.join(", ")}</p>
+            <p><strong>Pontos fortes:</strong> ${profiles[r.k].fortes.join(", ")}</p>
+            <p><strong>Pontos de melhoria:</strong> ${profiles[r.k].melhorias.join(", ")}</p>
+            <p><strong>Motivações:</strong> ${profiles[r.k].motivacoes.join(", ")}</p>
+            <p><strong>Valores:</strong> ${profiles[r.k].valores}</p>
           </div>
         `).join("")}
       </div>
@@ -309,9 +363,21 @@ function renderResult() {
 function renderIntro() {
   app.innerHTML = `
     <div class="container">
-      <div class="card animate-in">
+      <div class="card">
         <h2>Bem-vindo(a)</h2>
-        <p>Este teste ajuda a identificar seus estilos predominantes de personalidade.</p>
+        <p>
+          Este teste ajuda você a identificar seus estilos predominantes de
+          personalidade, representados por quatro perfis simbólicos.
+        </p>
+        <p>
+          ⏱️ Tempo estimado: <strong>5 minutos</strong><br>
+          🔒 Nenhuma informação é salva<br>
+          🎯 Não existem respostas certas ou erradas
+        </p>
+        <p>
+          O objetivo é promover <strong>autoconhecimento</strong> e melhorar
+          o convívio, o trabalho em equipe e o serviço cristão.
+        </p>
         <button class="primary" onclick="startTest()">Iniciar teste</button>
       </div>
     </div>
